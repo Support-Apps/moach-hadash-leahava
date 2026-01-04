@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💎 מוח חדש לאהבה</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Heebo', sans-serif;
+        }
+        
+        body {
+            background: #FFF5F7;
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            color: #D4A574;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #888;
+            font-size: 1.1em;
+        }
+        
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .main-icon {
+            font-size: 80px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .info-box {
+            background: #fff;
+            border: 2px solid #B8E6D4;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .info-box p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1em;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #D4A574;
+            font-size: 1.3em;
+            margin: 30px 0 15px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 15px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+        
+        .power-button {
+            background: #fff;
+            border: 2px solid #FFB6C1;
+            border-radius: 20px;
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .power-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(255, 182, 193, 0.3);
+            background: #FFF0F3;
+        }
+        
+        .power-button:active {
+            transform: scale(0.98);
+        }
+        
+        .power-button.mint { border-color: #B8E6D4; }
+        .power-button.mint:hover { background: #F0FFF8; }
+        
+        .power-button.gold { border-color: #D4A574; }
+        .power-button.gold:hover { background: #FFFAF5; }
+        
+        .button-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .button-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .button-desc {
+            font-size: 0.9em;
+            color: #888;
+            line-height: 1.5;
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #FFF5F7;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .overlay.active {
+            display: flex;
+        }
+        
+        .overlay-content {
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .close-overlay {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #FFB6C1;
+            border: none;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .animation-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+        }
+        
+        .animation-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            min-height: 60px;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #FFE4EC;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 6px;
+            transition: width 0.5s ease;
+            background: #FFB6C1;
+        }
+        
+        .completion-message {
+            display: none;
+            padding: 20px;
+            background: #fff;
+            border: 2px solid #B8E6D4;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .completion-message.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .install-btn {
+            background: #FFB6C1;
+            border: none;
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .install-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 182, 193, 0.5);
+        }
+        
+        .install-btn:disabled {
+            background: #ddd;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .new-beliefs {
+            background: #fff;
+            border: 2px solid #D4A574;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .new-beliefs h3 {
+            color: #D4A574;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .belief-item {
+            background: #FFF5F7;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin: 8px 0;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>💎 מוח חדש לאהבה</h1>
+        <p>מחיקת דפוסים ישנים והתקנת אמונות חדשות</p>
+    </div>
+    
+    <div class="icon-container">
+        <span class="main-icon">🦋</span>
+    </div>
+    
+    <div class="info-box">
+        <p>💜 האפליקציה הזו מוחקת דפוסים עמוקים<br>
+        שגרמו לך למשוך בני זוג לא מתאימים,<br>
+        ומתקינה מוח חדש שמאמין באהבה אמיתית.</p>
+    </div>
+    
+    <div class="section-title">🗑️ מחיקת דפוסים ישנים</div>
+    <div class="buttons-grid">
+        <div class="power-button" onclick="startProcess('defectiveness')">
+            <span class="button-icon">💔</span>
+            <div class="button-title">הסרת תחושת הפגימות</div>
+            <div class="button-desc">מחיקת התחושה שמשכה בני זוג שהצדיקו את הפגימות</div>
+        </div>
+        <div class="power-button mint" onclick="startProcess('abandonment')">
+            <span class="button-icon">😰</span>
+            <div class="button-title">הסרת חרדת הנטישה</div>
+            <div class="button-desc">מחיקת הפחד העמוק מנטישה</div>
+        </div>
+        <div class="power-button gold" onclick="startProcess('patterns')">
+            <span class="button-icon">🧠</span>
+            <div class="button-title">מחיקת כל הדפוסים</div>
+            <div class="button-desc">הסרת כל מחשבה, דיבור ומעשה שגרמו למשיכת בני זוג לא מתאימים</div>
+        </div>
+    </div>
+    
+    <div class="section-title">✨ התקנת מוח חדש</div>
+    <div class="buttons-grid">
+        <div class="power-button" onclick="startProcess('newBrain')">
+            <span class="button-icon">🧠</span>
+            <div class="button-title">התקנת מוח חדש לאהבה</div>
+            <div class="button-desc">מוח שמאמין באהבה אמיתית, כנה, בריאה, טובה, אמינה, נאמנה, מצחיקה, אינטימית ונפלאה</div>
+        </div>
+    </div>
+    
+    <div class="new-beliefs">
+        <h3>💫 האמונות החדשות שיותקנו:</h3>
+        <div class="belief-item">💕 אני ראויה לאהבה אמיתית וכנה</div>
+        <div class="belief-item">💪 אני שלמה ומושלמת בדיוק כמו שאני</div>
+        <div class="belief-item">🌟 אני מושכת בן זוג בריא ואוהב</div>
+        <div class="belief-item">💎 אני ראויה לנאמנות ואמינות</div>
+        <div class="belief-item">😊 אני ראויה לצחוק ושמחה בזוגיות</div>
+        <div class="belief-item">💗 אני ראויה לאינטימיות בטוחה ויפה</div>
+        <div class="belief-item">🏠 אני ראויה לביטחון ויציבות</div>
+        <div class="belief-item">✨ אני מושכת רק טוב לחיי</div>
+    </div>
+
+    <!-- Defectiveness Overlay -->
+    <div class="overlay" id="defectivenessOverlay">
+        <button class="close-overlay" onclick="closeOverlay('defectiveness')">✕</button>
+        <div class="overlay-content">
+            <div class="animation-icon" id="defectivenessIcon">💔</div>
+            <div class="animation-text" id="defectivenessText">מזהה את תחושת הפגימות...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="defectivenessProgress"></div>
+            </div>
+            <button class="install-btn" id="defectivenessBtn" onclick="runProcess('defectiveness')">🗑️ התחילי מחיקה</button>
+            <div class="completion-message" id="defectivenessComplete">
+                <p style="font-size: 1.3em; margin-bottom: 10px; color: #D4A574;">✅ תחושת הפגימות נמחקה!</p>
+                <p style="color: #666;">את שלמה ומושלמת בדיוק כמו שאת.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Abandonment Overlay -->
+    <div class="overlay" id="abandonmentOverlay">
+        <button class="close-overlay" onclick="closeOverlay('abandonment')">✕</button>
+        <div class="overlay-content">
+            <div class="animation-icon" id="abandonmentIcon">😰</div>
+            <div class="animation-text" id="abandonmentText">מזהה את חרדת הנטישה...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="abandonmentProgress"></div>
+            </div>
+            <button class="install-btn" id="abandonmentBtn" onclick="runProcess('abandonment')">🗑️ התחילי מחיקה</button>
+            <div class="completion-message" id="abandonmentComplete">
+                <p style="font-size: 1.3em; margin-bottom: 10px; color: #D4A574;">✅ חרדת הנטישה נמחקה!</p>
+                <p style="color: #666;">את בטוחה ומוגנת בתוך עצמך.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patterns Overlay -->
+    <div class="overlay" id="patternsOverlay">
+        <button class="close-overlay" onclick="closeOverlay('patterns')">✕</button>
+        <div class="overlay-content">
+            <div class="animation-icon" id="patternsIcon">🧠</div>
+            <div class="animation-text" id="patternsText">סורקת את כל הדפוסים...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="patternsProgress"></div>
+            </div>
+            <button class="install-btn" id="patternsBtn" onclick="runProcess('patterns')">🗑️ התחילי מחיקה</button>
+            <div class="completion-message" id="patternsComplete">
+                <p style="font-size: 1.3em; margin-bottom: 10px; color: #D4A574;">✅ כל הדפוסים נמחקו!</p>
+                <p style="color: #666;">המוח שלך נקי ומוכן לאהבה חדשה.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Brain Overlay -->
+    <div class="overlay" id="newBrainOverlay">
+        <button class="close-overlay" onclick="closeOverlay('newBrain')">✕</button>
+        <div class="overlay-content">
+            <div class="animation-icon" id="newBrainIcon">🧠</div>
+            <div class="animation-text" id="newBrainText">מכינה את המוח להתקנה...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="newBrainProgress"></div>
+            </div>
+            <button class="install-btn" id="newBrainBtn" onclick="runProcess('newBrain')">✨ התחילי התקנה</button>
+            <div class="completion-message" id="newBrainComplete">
+                <p style="font-size: 1.3em; margin-bottom: 10px; color: #D4A574;">✅ המוח החדש הותקן!</p>
+                <p style="color: #666;">את מוכנה לאהבה אמיתית, כנה, בריאה, טובה, אמינה, נאמנה, מצחיקה, אינטימית ונפלאה!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const processStages = {
+            defectiveness: [
+                { percent: 10, text: '💔 מזהה את תחושת הפגימות...', icon: '💔' },
+                { percent: 20, text: '🔍 סורקת את מקור התחושה...', icon: '🔍' },
+                { percent: 30, text: '📦 אוספת את כל הזכרונות שיצרו אותה...', icon: '📦' },
+                { percent: 40, text: '🧹 מנקה את האמונה "אני פגומה"...', icon: '🧹' },
+                { percent: 50, text: '🗑️ מוחקת את הדפוס שמשך בני זוג מצדיקים...', icon: '🗑️' },
+                { percent: 60, text: '✨ מנתקת את החיבור בין פגימות לאהבה...', icon: '✨' },
+                { percent: 70, text: '💎 מתקינה: "אני שלמה ומושלמת"...', icon: '💎' },
+                { percent: 80, text: '🌸 מחזקת את תחושת השלמות...', icon: '🌸' },
+                { percent: 90, text: '💗 מטמיעה את האמונה החדשה...', icon: '💗' },
+                { percent: 100, text: '✅ תחושת הפגימות נמחקה לחלוטין!', icon: '💎' }
+            ],
+            abandonment: [
+                { percent: 10, text: '😰 מזהה את חרדת הנטישה...', icon: '😰' },
+                { percent: 20, text: '🔍 סורקת את שורש החרדה...', icon: '🔍' },
+                { percent: 30, text: '👧 מוצאת את הילדה שפחדה להינטש...', icon: '👧' },
+                { percent: 40, text: '🤗 מחבקת אותה ואומרת "אני כאן"...', icon: '🤗' },
+                { percent: 50, text: '🧹 מנקה את הפחד העמוק...', icon: '🧹' },
+                { percent: 60, text: '🗑️ מוחקת את דפוס הנטישה...', icon: '🗑️' },
+                { percent: 70, text: '✨ מתקינה: "אני בטוחה בתוך עצמי"...', icon: '✨' },
+                { percent: 80, text: '🏠 מחזקת את תחושת הבית הפנימי...', icon: '🏠' },
+                { percent: 90, text: '💗 מטמיעה ביטחון עמוק...', icon: '💗' },
+                { percent: 100, text: '✅ חרדת הנטישה נמחקה לחלוטין!', icon: '🦋' }
+            ],
+            patterns: [
+                { percent: 10, text: '🧠 סורקת את כל המוח...', icon: '🧠' },
+                { percent: 20, text: '🔍 מזהה מחשבות שמשכו בני זוג לא מתאימים...', icon: '🔍' },
+                { percent: 30, text: '💬 מזהה דיבורים שיצרו דפוסים שליליים...', icon: '💬' },
+                { percent: 40, text: '🎯 מזהה מעשים שהצדיקו אמונות ישנות...', icon: '🎯' },
+                { percent: 50, text: '🧹 מנקה את כל המחשבות הישנות...', icon: '🧹' },
+                { percent: 60, text: '🗑️ מוחקת את כל הדיבורים המגבילים...', icon: '🗑️' },
+                { percent: 70, text: '✨ מוחקת את כל דפוסי המעשים...', icon: '✨' },
+                { percent: 80, text: '🌊 שוטפת את המוח לחלוטין...', icon: '🌊' },
+                { percent: 90, text: '💗 מכינה מקום לדפוסים חדשים...', icon: '💗' },
+                { percent: 100, text: '✅ כל הדפוסים הישנים נמחקו!', icon: '🧠' }
+            ],
+            newBrain: [
+                { percent: 10, text: '🧠 מכינה את המוח להתקנה...', icon: '🧠' },
+                { percent: 20, text: '💕 מתקינה: אמונה באהבה אמיתית...', icon: '💕' },
+                { percent: 30, text: '💎 מתקינה: אמונה באהבה כנה...', icon: '💎' },
+                { percent: 40, text: '💪 מתקינה: אמונה באהבה בריאה...', icon: '💪' },
+                { percent: 50, text: '🌟 מתקינה: אמונה באהבה טובה ואמינה...', icon: '🌟' },
+                { percent: 60, text: '💗 מתקינה: אמונה בנאמנות...', icon: '💗' },
+                { percent: 70, text: '😂 מתקינה: אמונה באהבה מצחיקה...', icon: '😂' },
+                { percent: 80, text: '💜 מתקינה: אמונה באינטימיות נפלאה...', icon: '💜' },
+                { percent: 90, text: '✨ משלימה את ההתקנה...', icon: '✨' },
+                { percent: 100, text: '✅ המוח החדש הותקן בהצלחה!', icon: '👑' }
+            ]
+        };
+        
+        function startProcess(type) {
+            document.getElementById(type + 'Overlay').classList.add('active');
+            document.getElementById(type + 'Progress').style.width = '0%';
+            document.getElementById(type + 'Complete').classList.remove('show');
+            document.getElementById(type + 'Btn').disabled = false;
+            
+            const btnTexts = {
+                defectiveness: '🗑️ התחילי מחיקה',
+                abandonment: '🗑️ התחילי מחיקה',
+                patterns: '🗑️ התחילי מחיקה',
+                newBrain: '✨ התחילי התקנה'
+            };
+            document.getElementById(type + 'Btn').textContent = btnTexts[type];
+        }
+        
+        function closeOverlay(type) {
+            document.getElementById(type + 'Overlay').classList.remove('active');
+        }
+        
+        function runProcess(type) {
+            const btn = document.getElementById(type + 'Btn');
+            const progress = document.getElementById(type + 'Progress');
+            const text = document.getElementById(type + 'Text');
+            const icon = document.getElementById(type + 'Icon');
+            const stages = processStages[type];
+            
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = '⏳ בתהליך...';
+            
+            let stage = 0;
+            const interval = setInterval(() => {
+                if (stage < stages.length) {
+                    progress.style.width = stages[stage].percent + '%';
+                    text.textContent = stages[stage].text;
+                    icon.textContent = stages[stage].icon;
+                    stage++;
+                } else {
+                    clearInterval(interval);
+                    document.getElementById(type + 'Complete').classList.add('show');
+                    btn.disabled = false;
+                    btn.textContent = originalText;
+                }
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
